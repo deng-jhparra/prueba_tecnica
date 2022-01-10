@@ -37,3 +37,16 @@ Estos entregables deberán ser subidos a tu github en un repositorio público do
 Estaremos esperando tu prueba hasta el día lunes 10 de enero y dependiendo de tu respuesta nos comunicaremos contigo para seguir con el proceso. 
 
 ¡Muchos éxitos!
+
+INFORMACION
+
+Archivos SQL :
+1 Creacion estructura base de datos.sql : Contiene los scripts que permiten la creacion de las tablas, esta actividad se utilizo el sistema de base de datos PostgreSQL
+2 Poblar tablas Clientes-Productos-Facturacion.sql : Contiene los scripts de INSERT que van a permitir poblar las tres (3) tablas.
+3 Informes.sql : Contiene los querys de los informes solcitados.
+
+El archivo Creacion de Scripts para poblar tablas.ods lo utilice de apoyo para la crecion de los script de insert, este esta realizado en LibreOffice
+
+De antemano gracias por tomarme en cuenta en la prueba tecnica.
+
+
