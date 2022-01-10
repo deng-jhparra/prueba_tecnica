@@ -1,6 +1,6 @@
 /**
  * Recursos Humanos de EDteam
- * Prueba técnica para candidatos a DBA Junior
+ * Prueba tÃ©cnica para candidatos a DBA Junior
  * ===========================================
  * 
  * Candidato : Jesus Parra
@@ -8,7 +8,7 @@
 **/
 
 ------------------------------------------
--- Clientes que han comprado más en valor.
+-- Clientes que han comprado mÃ¡s en valor.
 ------------------------------------------
 
 -- Se considera un cliente que compre por mas de 2500 unidades monetaria
@@ -17,9 +17,9 @@ SELECT
       (SELECT nombre||' '||apellido 
        FROM clientes 
        WHERE id = f.cliente_id)  AS "Cliente", 
-      to_char(sum(f.cantidad_vendida * (SELECT precio 
+      sum(f.cantidad_vendida * (SELECT precio 
                                         FROM productos 
-                                        WHERE id=f.producto_id)),'9G999D00') AS "Valor/Compra"
+                                        WHERE id=f.producto_id)) AS "Valor/Compra"
 FROM facturacion f
 GROUP BY "Cliente"
 HAVING sum(f.cantidad_vendida * (SELECT precio 
@@ -28,7 +28,7 @@ HAVING sum(f.cantidad_vendida * (SELECT precio
 ORDER BY 2 DESC
 
 ---------------------------------------------
--- Clientes que han comprado más en cantidad.
+-- Clientes que han comprado mÃ¡s en cantidad.
 ---------------------------------------------
 
 -- Se considera un cliente que compre por mas de 100 unidades
@@ -44,7 +44,7 @@ HAVING sum(cantidad_vendida) > 100
 ORDER BY "Cantidad Comprada"  DESC
 
 -----------------------------------
--- Productos más vendidos en valor.
+-- Productos mÃ¡s vendidos en valor.
 -----------------------------------
 
 -- Se considera un producto mas vendido en valor que supere 3000 unidades monetaria
@@ -53,9 +53,9 @@ SELECT
       (SELECT nombre 
        FROM productos 
        WHERE id=f.producto_id) AS "Producto",
-      to_char(sum(cantidad_vendida * (SELECT precio 
+      sum(cantidad_vendida * (SELECT precio 
                                       FROM productos 
-                                      WHERE id=f.producto_id)),'9G999D00') AS "Valor" 
+                                      WHERE id=f.producto_id)) AS "Valor" 
 FROM facturacion f
 GROUP BY "Producto"
 HAVING sum(cantidad_vendida * (SELECT precio 
@@ -64,7 +64,7 @@ HAVING sum(cantidad_vendida * (SELECT precio
 ORDER BY "Valor" DESC
 
 --------------------------------------
--- Productos más vendidos en cantidad.
+-- Productos mÃ¡s vendidos en cantidad.
 --------------------------------------
 
 -- Se considera un producto mas vendido que supere 100 unidades
@@ -89,9 +89,9 @@ SELECT
       (SELECT nombre 
        FROM productos 
        WHERE id=f.producto_id) AS "Producto",
-      to_char(sum(cantidad_vendida * (SELECT precio 
+      sum(cantidad_vendida * (SELECT precio 
                                       FROM productos 
-                                      WHERE id=f.producto_id)),'9G999D00') AS "Valor" 
+                                      WHERE id=f.producto_id)) AS "Valor" 
 FROM facturacion f
 GROUP BY "Producto"
 HAVING sum(cantidad_vendida * (SELECT precio 
@@ -119,13 +119,13 @@ ORDER BY "Cantidad Vendida" DESC
 -- Valor de las ventas agrupadas por mes.
 -----------------------------------------
 
--- Se agrego el año para identificar el mes del año correspondiente
+-- Se agrego el aÃ±o para identificar el mes del aÃ±o correspondiente
 
-SELECT date_part('year',fecha_facturacion::date) AS "Año", 
+SELECT date_part('year',fecha_facturacion::date) AS "AÃ±o", 
        date_part('month', fecha_facturacion::date) AS "Mes",
-       to_char(sum(f.cantidad_vendida * (SELECT precio 
+       sum(f.cantidad_vendida * (SELECT precio 
                                          FROM productos 
-                                         WHERE id=f.producto_id)),'9G999D00') AS "Valor Ventas/Mes"
+                                         WHERE id=f.producto_id)) AS "Valor Ventas/Mes"
 FROM facturacion f
 GROUP BY date_part('year',fecha_facturacion::date),date_part('month', fecha_facturacion::date)
 ORDER BY date_part('year',fecha_facturacion::date),date_part('month', fecha_facturacion::date) ASC
@@ -134,17 +134,17 @@ ORDER BY date_part('year',fecha_facturacion::date),date_part('month', fecha_fact
 -- Valor de las ventas agrupadas por producto y mes.
 ----------------------------------------------------
 
--- Se agrego el año para identificar el mes del año correspondiente
+-- Se agrego el aÃ±o para identificar el mes del aÃ±o correspondiente
 
 SELECT 
       (SELECT nombre 
        FROM productos 
        WHERE id = f.producto_id) AS "Producto", 
-      date_part('year',fecha_facturacion::date) AS "Año", 
+      date_part('year',fecha_facturacion::date) AS "AÃ±o", 
       date_part('month', fecha_facturacion::date) AS "Mes", 
-      to_char(sum(f.cantidad_vendida * (SELECT precio 
+      sum(f.cantidad_vendida * (SELECT precio 
                                         FROM productos 
-                                        WHERE id=f.producto_id)),'9G999D00') AS "Valor Ventas /Mes"
+                                        WHERE id=f.producto_id)) AS "Valor Ventas /Mes"
 FROM facturacion f
 GROUP BY producto_id, date_part('year', fecha_facturacion::date), date_part('month', fecha_facturacion::date)
 ORDER BY producto_id, date_part('month', fecha_facturacion::date) ASC
